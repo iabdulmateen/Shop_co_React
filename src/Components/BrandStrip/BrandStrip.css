@@ -1,0 +1,159 @@
+.brand-strip {
+  width: 100%;
+  min-width: 250px;
+  height: 105px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.brand-container {
+  width: 100%;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.brand-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.brand-item img {
+  width: auto;
+  max-width: 180px;
+  max-height: 42px;
+  object-fit: contain;
+  display: block;
+}
+
+/* 1200px - Large Desktop */
+@media (max-width: 1200px) {
+  .brand-container {
+    padding: 0 6%;
+  }
+}
+
+/* 1024px - Tablet Landscape */
+@media (max-width: 1024px) {
+  .brand-strip {
+    height: 95px;
+  }
+
+  .brand-item img {
+    max-width: 150px;
+    max-height: 38px;
+  }
+}
+
+/* 768px - Tablet Portrait */
+@media (max-width: 768px) {
+  .brand-strip {
+    height: 85px;
+  }
+
+  .brand-container {
+    padding: 0 4%;
+  }
+
+  .brand-item img {
+    max-width: 130px;
+    max-height: 34px;
+  }
+}
+
+/* 600px - Large Mobile */
+@media (max-width: 600px) {
+  .brand-strip {
+    height: 70px;
+    overflow-x: auto;
+  }
+
+  .brand-container {
+    width: max-content;
+    gap: 40px;
+    padding: 0 25px;
+  }
+
+  .brand-item {
+    flex: none;
+  }
+
+  .brand-item img {
+    max-width: 100px;
+    max-height: 28px;
+  }
+}
+
+/* 480px - Mobile */
+@media (max-width: 480px) {
+  .brand-strip {
+    height: 62px;
+  }
+
+  .brand-container {
+    gap: 30px;
+    padding: 0 20px;
+  }
+
+  .brand-item img {
+    max-width: 85px;
+    max-height: 24px;
+  }
+}
+
+/* 375px - Small Mobile */
+@media (max-width: 375px) {
+  .brand-strip {
+    height: 56px;
+  }
+
+  .brand-container {
+    gap: 24px;
+    padding: 0 16px;
+  }
+
+  .brand-item img {
+    max-width: 72px;
+    max-height: 20px;
+  }
+}
+
+/* 320px - Extra Small Mobile */
+@media (max-width: 320px) {
+  .brand-strip {
+    height: 50px;
+  }
+
+  .brand-container {
+    gap: 18px;
+    padding: 0 12px;
+  }
+
+  .brand-item img {
+    max-width: 62px;
+    max-height: 18px;
+  }
+}
+
+/* 250px - Minimum Lock Point */
+@media (max-width: 250px) {
+  .brand-strip {
+    height: 46px;
+  }
+
+  .brand-container {
+    gap: 14px;
+    padding: 0 10px;
+  }
+
+  .brand-item img {
+    max-width: 52px;
+    max-height: 16px;
+  }
+}

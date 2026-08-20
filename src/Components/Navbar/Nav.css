@@ -1,0 +1,454 @@
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+  width: 100%;
+  min-height: 80px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 35px;
+
+  padding: 0 60px;
+  box-sizing: border-box;
+
+  background-color: #fff;
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.navlogo {
+  display: flex;
+  align-items: center;
+
+  flex-shrink: 0;
+}
+
+.navlogo img {
+  width: 140px;
+  height: auto;
+
+  display: block;
+  object-fit: contain;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+.navlist a {
+  color: inherit;
+  text-decoration: none;
+}
+.navlist {
+  display: flex;
+  align-items: center;
+
+  gap: 30px;
+
+  list-style: none;
+
+  margin: 0;
+  padding: 0;
+
+  flex-shrink: 0;
+}
+
+.navlist li {
+  font-size: 16px;
+  font-weight: 500;
+
+  color: #000;
+
+  cursor: pointer;
+  white-space: nowrap;
+
+  transition: 0.2s ease;
+}
+
+.navlist li:hover {
+  color: #555;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box {
+  position: relative;
+
+  flex: 1;
+  max-width: 540px;
+
+  min-width: 200px;
+}
+.cart-icon-wrapper {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #000;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search-box input {
+  width: 100%;
+  height: 45px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 25px;
+
+  background-color: #f0f0f0;
+
+  padding: 0 20px 0 50px;
+
+  box-sizing: border-box;
+
+  font-size: 14px;
+  color: #000;
+}
+
+.search-box input::placeholder {
+  color: #777;
+}
+
+
+/* Search Icon */
+
+.search-box i {
+  position: absolute;
+
+  left: 18px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  font-size: 17px;
+
+  color: #555;
+
+  pointer-events: none;
+}
+
+
+/* =========================
+   RIGHT ICONS
+========================= */
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+
+  flex-shrink: 0;
+}
+
+.nav-icons i {
+  font-size: 20px;
+
+  color: #000;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.nav-icons i:hover {
+  color: #555;
+}
+
+
+/* =========================================================
+   RESPONSIVE — 8 BREAKPOINT SYSTEM
+   1200 → 1024 → 768 → 600 → 480 → 375 → 320 → 250 (lock)
+========================================================= */
+
+/* ===== 1200px ===== */
+@media (max-width: 1200px) {
+
+  .navbar {
+    padding: 0 40px;
+    gap: 25px;
+  }
+
+  .navlogo img {
+    width: 130px;
+  }
+
+  .navlist {
+    gap: 20px;
+  }
+
+  .navlist li {
+    font-size: 15px;
+  }
+
+  .search-box {
+    max-width: 320px;
+  }
+}
+
+
+/* ===== 1024px ===== */
+@media (max-width: 1024px) {
+
+  .navbar {
+    padding: 0 30px;
+    gap: 20px;
+  }
+
+  .navlogo img {
+    width: 120px;
+  }
+
+  .navlist {
+    gap: 16px;
+  }
+
+  .navlist li {
+    font-size: 14px;
+  }
+
+  .search-box {
+    max-width: 260px;
+  }
+}
+
+
+/* ===== 768px ===== */
+@media (max-width: 768px) {
+
+  .navbar {
+    min-height: 70px;
+
+    padding: 15px 20px;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 15px;
+  }
+
+  .navlogo img {
+    width: 120px;
+  }
+
+  /* Hide desktop menu */
+  .navlist {
+    display: none;
+  }
+
+  /* Right icons */
+  .nav-icons {
+    margin-left: auto;
+  }
+
+  .nav-icons i {
+    font-size: 18px;
+  }
+
+  /* Search goes to next row */
+  .search-box {
+    width: 100%;
+    max-width: none;
+
+    order: 3;
+  }
+
+  .search-box input {
+    height: 42px;
+  }
+}
+
+
+/* ===== 600px ===== */
+@media (max-width: 600px) {
+
+  .navbar {
+    padding: 12px 18px;
+    gap: 12px;
+  }
+
+  .navlogo img {
+    width: 115px;
+  }
+
+  .nav-icons {
+    gap: 16px;
+  }
+
+  .nav-icons i {
+    font-size: 18px;
+  }
+
+  .search-box input {
+    height: 41px;
+    font-size: 13px;
+  }
+}
+
+
+/* ===== 480px ===== */
+@media (max-width: 480px) {
+
+  .navbar {
+    padding: 12px 15px;
+  }
+
+  .navlogo img {
+    width: 105px;
+  }
+
+  .nav-icons {
+    gap: 15px;
+  }
+
+  .nav-icons i {
+    font-size: 17px;
+  }
+
+  .search-box input {
+    height: 40px;
+
+    font-size: 13px;
+
+    padding-left: 45px;
+  }
+
+  .search-box i {
+    left: 15px;
+
+    font-size: 15px;
+  }
+}
+
+
+/* ===== 375px ===== */
+@media (max-width: 375px) {
+
+  .navbar {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .navlogo img {
+    width: 95px;
+  }
+
+  .nav-icons {
+    gap: 12px;
+  }
+
+  .nav-icons i {
+    font-size: 16px;
+  }
+
+  .search-box input {
+    height: 38px;
+    font-size: 12px;
+    padding-left: 40px;
+  }
+
+  .search-box i {
+    left: 12px;
+    font-size: 14px;
+  }
+
+  .cart-badge {
+    width: 14px;
+    height: 14px;
+    font-size: 9px;
+  }
+}
+
+
+/* ===== 320px ===== */
+@media (max-width: 320px) {
+
+  .navbar {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  .navlogo img {
+    width: 85px;
+  }
+
+  .nav-icons {
+    gap: 10px;
+  }
+
+  .nav-icons i {
+    font-size: 15px;
+  }
+
+  .search-box input {
+    height: 36px;
+    font-size: 11px;
+    padding-left: 36px;
+  }
+
+  .search-box i {
+    left: 10px;
+    font-size: 13px;
+  }
+}
+
+
+/* ===== 250px — LOCK POINT ===== */
+@media (max-width: 250px) {
+
+  .navbar {
+    min-width: 250px;
+    overflow-x: auto;
+
+    padding: 8px;
+    gap: 6px;
+  }
+
+  .navlogo img {
+    width: 70px;
+  }
+
+  .nav-icons {
+    gap: 8px;
+  }
+
+  .nav-icons i {
+    font-size: 14px;
+  }
+
+  .search-box {
+    min-width: 150px;
+  }
+
+  .search-box input {
+    height: 34px;
+    font-size: 11px;
+    padding-left: 32px;
+  }
+
+  .search-box i {
+    left: 8px;
+    font-size: 12px;
+  }
+}

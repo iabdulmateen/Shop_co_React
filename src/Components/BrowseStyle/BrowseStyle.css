@@ -1,0 +1,253 @@
+.browse-style {
+  width: 100%;
+  min-width: 250px;
+  padding: 60px 6% 70px;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.browse-style-inner {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  background: #f0f0f0;
+  border-radius: 30px;
+  padding: 55px 60px 65px;
+  box-sizing: border-box;
+}
+
+.browse-style-title {
+  margin: 0 0 45px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 38px;
+  font-weight: 900;
+  color: #000;
+  letter-spacing: -1px;
+}
+
+.style-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.style-card {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: transform 0.25s ease;
+}
+
+.style-card:hover {
+  transform: translateY(-3px);
+}
+
+.style-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.style-card h3 {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+  margin: 0;
+  z-index: 2;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #000;
+}
+
+/* Widths — row apne aap wrap hokar ban jaati hai */
+.casual { flex: 1 1 calc(40% - 10px); }
+.formal { flex: 1 1 calc(60% - 10px); }
+.party  { flex: 1 1 calc(60% - 10px); }
+.gym    { flex: 1 1 calc(40% - 10px); }
+
+/* 1200px - Large Desktop */
+@media (max-width: 1200px) {
+  .browse-style-inner {
+    padding: 50px 45px 55px;
+  }
+}
+
+/* 1024px - Tablet Landscape */
+@media (max-width: 1024px) {
+  .browse-style-inner {
+    padding: 45px 35px;
+  }
+
+  .style-card {
+    height: 220px;
+  }
+
+  .browse-style-title {
+    font-size: 32px;
+  }
+}
+
+/* 768px - Tablet Portrait */
+@media (max-width: 768px) {
+  .browse-style {
+    padding: 50px 4% 60px;
+  }
+
+  .browse-style-inner {
+    padding: 40px 30px;
+  }
+
+  .style-card {
+    height: 210px;
+  }
+
+  .casual, .formal, .party, .gym {
+    flex: 1 1 calc(50% - 10px);
+  }
+
+  .style-card h3 {
+    font-size: 24px;
+    top: 20px;
+    left: 24px;
+  }
+}
+
+/* 600px - Large Mobile */
+@media (max-width: 600px) {
+  .browse-style {
+    padding: 40px 20px;
+  }
+
+  .browse-style-inner {
+    padding: 35px 20px;
+    border-radius: 20px;
+  }
+
+  .browse-style-title {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
+
+  .style-card {
+    height: 200px;
+  }
+
+  .casual, .formal, .party, .gym {
+    flex: 1 1 100%;
+  }
+}
+
+/* 480px - Mobile */
+@media (max-width: 480px) {
+  .browse-style {
+    padding: 32px 15px;
+  }
+
+  .browse-style-inner {
+    padding: 28px 16px;
+    border-radius: 16px;
+  }
+
+  .browse-style-title {
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+
+  .style-card {
+    height: 170px;
+  }
+
+  .style-card h3 {
+    font-size: 20px;
+    top: 16px;
+    left: 18px;
+  }
+}
+
+/* 375px - Small Mobile */
+@media (max-width: 375px) {
+  .browse-style {
+    padding: 26px 12px;
+  }
+
+  .browse-style-inner {
+    padding: 22px 14px;
+    border-radius: 14px;
+  }
+
+  .browse-style-title {
+    font-size: 19px;
+    margin-bottom: 20px;
+  }
+
+  .style-card {
+    height: 150px;
+  }
+
+  .style-card h3 {
+    font-size: 17px;
+    top: 14px;
+    left: 14px;
+  }
+}
+
+/* 320px - Extra Small Mobile */
+@media (max-width: 320px) {
+  .browse-style {
+    padding: 20px 10px;
+  }
+
+  .browse-style-inner {
+    padding: 18px 12px;
+    border-radius: 12px;
+  }
+
+  .browse-style-title {
+    font-size: 17px;
+    margin-bottom: 16px;
+  }
+
+  .style-card {
+    height: 130px;
+  }
+
+  .style-card h3 {
+    font-size: 15px;
+    top: 12px;
+    left: 12px;
+  }
+}
+
+/* 250px - Minimum Lock Point */
+@media (max-width: 250px) {
+  .browse-style {
+    padding: 16px 8px;
+  }
+
+  .browse-style-inner {
+    padding: 14px 10px;
+    border-radius: 10px;
+  }
+
+  .browse-style-title {
+    font-size: 15px;
+    margin-bottom: 14px;
+  }
+
+  .style-card {
+    height: 110px;
+  }
+
+  .style-card h3 {
+    font-size: 13px;
+    top: 10px;
+    left: 10px;
+  }
+}
