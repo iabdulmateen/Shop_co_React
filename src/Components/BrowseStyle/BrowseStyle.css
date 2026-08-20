@@ -64,22 +64,25 @@
   font-size: 28px;
   font-weight: 700;
   color: #000;
+  line-height: 1.1; /* Text top clipping fix */
 }
 
-/* Widths — row apne aap wrap hokar ban jaati hai */
+/* Row Widths */
 .casual { flex: 1 1 calc(40% - 10px); }
 .formal { flex: 1 1 calc(60% - 10px); }
 .party  { flex: 1 1 calc(60% - 10px); }
 .gym    { flex: 1 1 calc(40% - 10px); }
 
-/* 1200px - Large Desktop */
+/* =========================
+   MEDIA QUERIES
+========================= */
+
 @media (max-width: 1200px) {
   .browse-style-inner {
     padding: 50px 45px 55px;
   }
 }
 
-/* 1024px - Tablet Landscape */
 @media (max-width: 1024px) {
   .browse-style-inner {
     padding: 45px 35px;
@@ -94,57 +97,30 @@
   }
 }
 
-/* 768px - Tablet Portrait */
 @media (max-width: 768px) {
   .browse-style {
     padding: 50px 4% 60px;
   }
 
   .browse-style-inner {
-    padding: 40px 30px;
+    padding: 40px 24px;
   }
 
   .style-card {
-    height: 210px;
+    height: 190px;
   }
 
   .casual, .formal, .party, .gym {
-    flex: 1 1 calc(50% - 10px);
+    flex: 1 1 100%; /* Single column stack for clean layout */
   }
 
   .style-card h3 {
     font-size: 24px;
-    top: 20px;
+    top: 22px;
     left: 24px;
   }
 }
 
-/* 600px - Large Mobile */
-@media (max-width: 600px) {
-  .browse-style {
-    padding: 40px 20px;
-  }
-
-  .browse-style-inner {
-    padding: 35px 20px;
-    border-radius: 20px;
-  }
-
-  .browse-style-title {
-    font-size: 26px;
-    margin-bottom: 30px;
-  }
-
-  .style-card {
-    height: 200px;
-  }
-
-  .casual, .formal, .party, .gym {
-    flex: 1 1 100%;
-  }
-}
-
-/* 480px - Mobile */
 @media (max-width: 480px) {
   .browse-style {
     padding: 32px 15px;
@@ -152,102 +128,33 @@
 
   .browse-style-inner {
     padding: 28px 16px;
-    border-radius: 16px;
+    border-radius: 20px;
   }
 
   .browse-style-title {
-    font-size: 22px;
+    font-size: 24px;
     margin-bottom: 24px;
   }
 
   .style-card {
-    height: 170px;
+    height: 160px; /* Sane minimum height */
   }
 
   .style-card h3 {
     font-size: 20px;
+    top: 18px;
+    left: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .style-card {
+    height: 140px;
+  }
+
+  .style-card h3 {
+    font-size: 18px;
     top: 16px;
-    left: 18px;
-  }
-}
-
-/* 375px - Small Mobile */
-@media (max-width: 375px) {
-  .browse-style {
-    padding: 26px 12px;
-  }
-
-  .browse-style-inner {
-    padding: 22px 14px;
-    border-radius: 14px;
-  }
-
-  .browse-style-title {
-    font-size: 19px;
-    margin-bottom: 20px;
-  }
-
-  .style-card {
-    height: 150px;
-  }
-
-  .style-card h3 {
-    font-size: 17px;
-    top: 14px;
-    left: 14px;
-  }
-}
-
-/* 320px - Extra Small Mobile */
-@media (max-width: 320px) {
-  .browse-style {
-    padding: 20px 10px;
-  }
-
-  .browse-style-inner {
-    padding: 18px 12px;
-    border-radius: 12px;
-  }
-
-  .browse-style-title {
-    font-size: 17px;
-    margin-bottom: 16px;
-  }
-
-  .style-card {
-    height: 130px;
-  }
-
-  .style-card h3 {
-    font-size: 15px;
-    top: 12px;
-    left: 12px;
-  }
-}
-
-/* 250px - Minimum Lock Point */
-@media (max-width: 250px) {
-  .browse-style {
-    padding: 16px 8px;
-  }
-
-  .browse-style-inner {
-    padding: 14px 10px;
-    border-radius: 10px;
-  }
-
-  .browse-style-title {
-    font-size: 15px;
-    margin-bottom: 14px;
-  }
-
-  .style-card {
-    height: 110px;
-  }
-
-  .style-card h3 {
-    font-size: 13px;
-    top: 10px;
-    left: 10px;
+    left: 16px;
   }
 }
