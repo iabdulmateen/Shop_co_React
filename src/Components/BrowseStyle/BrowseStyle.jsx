@@ -9,33 +9,34 @@ const BrowseStyle = () => {
   const styles = [
     {
       id: 1,
-      name: "Casual",
       image: casual,
       className: "casual",
+      alt: "Casual",
     },
     {
       id: 2,
-      name: "Formal",
       image: formal,
       className: "formal",
+      alt: "Formal",
     },
     {
       id: 3,
-      name: "Party",
       image: party,
       className: "party",
+      alt: "Party",
     },
     {
       id: 4,
-      name: "Gym",
       image: gym,
       className: "gym",
+      alt: "Gym",
     },
   ];
 
   return (
     <section className="browse-style">
       <div className="browse-style-inner">
+
         <h2 className="browse-style-title">
           BROWSE BY DRESS STYLE
         </h2>
@@ -48,13 +49,12 @@ const BrowseStyle = () => {
             >
               <img
                 src={style.image}
-                alt={style.name}
+                alt={style.alt}
               />
-
-              <h3>{style.name}</h3>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );
