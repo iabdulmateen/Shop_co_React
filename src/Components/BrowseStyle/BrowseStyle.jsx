@@ -9,24 +9,25 @@ const BrowseStyle = () => {
   const styles = [
     {
       id: 1,
-
+      name: "Casual",
       image: casual,
       className: "casual",
     },
     {
       id: 2,
+      name: "Formal",
       image: formal,
       className: "formal",
     },
     {
       id: 3,
-    
+      name: "Party",
       image: party,
       className: "party",
     },
     {
       id: 4,
-     
+      name: "Gym",
       image: gym,
       className: "gym",
     },
@@ -34,19 +35,16 @@ const BrowseStyle = () => {
 
   return (
     <section className="browse-style">
-
       <div className="browse-style-inner">
-
         <h2 className="browse-style-title">
           BROWSE BY DRESS STYLE
         </h2>
 
         <div className="style-grid">
-
           {styles.map((style) => (
             <div
-              className={`style-card ${style.className}`}
               key={style.id}
+              className={`style-card ${style.className}`}
             >
               <img
                 src={style.image}
@@ -56,11 +54,8 @@ const BrowseStyle = () => {
               <h3>{style.name}</h3>
             </div>
           ))}
-
         </div>
-
       </div>
-
     </section>
   );
 };
