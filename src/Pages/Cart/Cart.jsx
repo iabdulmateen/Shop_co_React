@@ -6,7 +6,6 @@ import "./Cart.css";
 const Cart = () => {
   const { cart, removeFromCart, increaseQuantity, decreaseQuantity, cartTotal, placeOrder } = useCart();
 
-  // Checkout modal and order status states
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(null);
@@ -24,11 +23,10 @@ const Cart = () => {
   const deliveryFee = cart.length > 0 ? 15 : 0;
   const total = cartTotal - discount + deliveryFee;
 
-  // Handle Order Submit to Backend
   const handleCheckoutSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.address || !formData.phone) {
-      alert("Please fill all required fields (Name, Phone, Address)");
+      alert("Please fill Name, Phone, and Address");
       return;
     }
 
@@ -41,10 +39,7 @@ const Cart = () => {
           postalCode: formData.postalCode,
           country: formData.country,
         },
-        {
-          name: formData.name,
-          phone: formData.phone,
-        }
+        { name: formData.name, phone: formData.phone }
       );
 
       setOrderPlaced(order);
@@ -66,7 +61,6 @@ const Cart = () => {
 
       <h1 className="cart-title">YOUR CART</h1>
 
-      {/* Order Placed Success Banner */}
       {orderPlaced && (
         <div style={{
           backgroundColor: "#e6fffa",
@@ -92,7 +86,6 @@ const Cart = () => {
         </div>
       ) : (
         <div className="cart-layout">
-          {/* Cart Items */}
           <div className="cart-items">
             {cart.map((item, index) => {
               const itemId = item._id || item.id;
@@ -110,10 +103,7 @@ const Cart = () => {
                         {item.color && (
                           <p className="cart-item-meta">
                             Color:{" "}
-                            <span
-                              className="color-dot"
-                              style={{ backgroundColor: item.color }}
-                            ></span>
+                            <span className="color-dot" style={{ backgroundColor: item.color }}></span>
                           </p>
                         )}
                       </div>
@@ -141,7 +131,6 @@ const Cart = () => {
             })}
           </div>
 
-          {/* Order Summary */}
           <div className="order-summary">
             <h2>Order Summary</h2>
 
@@ -165,11 +154,6 @@ const Cart = () => {
               <span>${total}</span>
             </div>
 
-            <div className="promo-row">
-              <input type="text" placeholder="Add promo code" />
-              <button type="button">Apply</button>
-            </div>
-
             <button 
               type="button" 
               className="checkout-btn" 
@@ -181,28 +165,17 @@ const Cart = () => {
         </div>
       )}
 
-      {/* ================= CHECKOUT MODAL ================= */}
       {showCheckoutModal && (
         <div style={{
           position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
+          top: 0, left: 0, right: 0, bottom: 0,
           backgroundColor: "rgba(0,0,0,0.5)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 1000,
-          padding: "16px"
+          display: "flex", alignItems: "center", justifyContent: "center",
+          zIndex: 1000, padding: "16px"
         }}>
           <div style={{
-            backgroundColor: "#fff",
-            borderRadius: "16px",
-            padding: "24px",
-            maxWidth: "480px",
-            width: "100%",
-            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2)"
+            backgroundColor: "#fff", borderRadius: "16px", padding: "24px",
+            maxWidth: "480px", width: "100%", boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2)"
           }}>
             <h2 style={{ margin: "0 0 16px 0", fontSize: "22px" }}>Shipping & Delivery Details</h2>
             
@@ -210,10 +183,7 @@ const Cart = () => {
               <div style={{ marginBottom: "12px" }}>
                 <label style={{ display: "block", fontSize: "14px", fontWeight: "600", marginBottom: "4px" }}>Full Name *</label>
                 <input
-                  type="text"
-                  required
-                  placeholder="e.g. Abdul Mateen"
-                  value={formData.name}
+                  type="text" required placeholder="e.g. Abdul Mateen" value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   style={{ width: "100%", padding: "10px", borderRadius: "8px", border: "1px solid #e2e8f0", boxSizing: "border-box" }}
                 />
@@ -222,10 +192,7 @@ const Cart = () => {
               <div style={{ marginBottom: "12px" }}>
                 <label style={{ display: "block", fontSize: "14px", fontWeight: "600", marginBottom: "4px" }}>Phone Number *</label>
                 <input
-                  type="text"
-                  required
-                  placeholder="e.g. +92 300 1234567"
-                  value={formData.phone}
+                  type="text" required placeholder="e.g. +92 300 1234567" value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   style={{ width: "100%", padding: "10px", borderRadius: "8px", border: "1px solid #e2e8f0", boxSizing: "border-box" }}
                 />
@@ -234,10 +201,7 @@ const Cart = () => {
               <div style={{ marginBottom: "12px" }}>
                 <label style={{ display: "block", fontSize: "14px", fontWeight: "600", marginBottom: "4px" }}>Delivery Address *</label>
                 <input
-                  type="text"
-                  required
-                  placeholder="House #, Street, Area"
-                  value={formData.address}
+                  type="text" required placeholder="House #, Street, Area" value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                   style={{ width: "100%", padding: "10px", borderRadius: "8px", border: "1px solid #e2e8f0", boxSizing: "border-box" }}
                 />
@@ -247,8 +211,7 @@ const Cart = () => {
                 <div>
                   <label style={{ display: "block", fontSize: "14px", fontWeight: "600", marginBottom: "4px" }}>City</label>
                   <input
-                    type="text"
-                    value={formData.city}
+                    type="text" value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                     style={{ width: "100%", padding: "10px", borderRadius: "8px", border: "1px solid #e2e8f0", boxSizing: "border-box" }}
                   />
@@ -256,8 +219,7 @@ const Cart = () => {
                 <div>
                   <label style={{ display: "block", fontSize: "14px", fontWeight: "600", marginBottom: "4px" }}>Postal Code</label>
                   <input
-                    type="text"
-                    value={formData.postalCode}
+                    type="text" value={formData.postalCode}
                     onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })}
                     style={{ width: "100%", padding: "10px", borderRadius: "8px", border: "1px solid #e2e8f0", boxSizing: "border-box" }}
                   />
@@ -271,22 +233,16 @@ const Cart = () => {
 
               <div style={{ display: "flex", gap: "12px", justifyContent: "flex-end" }}>
                 <button
-                  type="button"
-                  onClick={() => setShowCheckoutModal(false)}
+                  type="button" onClick={() => setShowCheckoutModal(false)}
                   style={{ padding: "10px 18px", borderRadius: "8px", border: "1px solid #cbd5e0", backgroundColor: "#fff", cursor: "pointer" }}
                 >
                   Cancel
                 </button>
                 <button
-                  type="submit"
-                  disabled={loading}
+                  type="submit" disabled={loading}
                   style={{
-                    padding: "10px 22px",
-                    borderRadius: "8px",
-                    border: "none",
-                    backgroundColor: "#000",
-                    color: "#fff",
-                    fontWeight: "600",
+                    padding: "10px 22px", borderRadius: "8px", border: "none",
+                    backgroundColor: "#000", color: "#fff", fontWeight: "600",
                     cursor: loading ? "not-allowed" : "pointer"
                   }}
                 >

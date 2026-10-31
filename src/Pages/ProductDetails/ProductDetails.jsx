@@ -4,15 +4,13 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import Reviews from "../../Components/Reviews/Reviews";
 import ProductRecommendations from "../../Components/ProductRecommendations/ProductRecommendations";
 import cloth1 from "../../assets/cloth1.png";
-import API from "../../api"; // Hamara API client
-
+import API from "../../api";
 import { useCart } from "../../Context/Cart";
 
 const ProductDetails = () => {
-  const { id } = useParams(); // URL se :id nikalne ke liye
+  const { id } = useParams();
   const location = useLocation();
 
-  // Agar state se product mila ho to foran use karein, warna default
   const [product, setProduct] = useState(
     location.state || {
       id: id || "1",
@@ -30,9 +28,7 @@ const ProductDetails = () => {
   const [selectedSize, setSelectedSize] = useState("Large");
   const [quantity, setQuantity] = useState(1);
   const [mainImage, setMainImage] = useState(product.image || product.imageUrl || cloth1);
-  const [loading, setLoading] = useState(!location.state);
 
-  // Backend se fresh product details lana (refresh hone par bhi product na toote)
   useEffect(() => {
     if (id) {
       API.get(`/products/${id}`)
@@ -42,15 +38,11 @@ const ProductDetails = () => {
             setMainImage(res.data.image || res.data.imageUrl || cloth1);
           }
         })
-        .catch((err) => {
-          console.warn("Could not fetch product from backend:", err.message);
-        })
-        .finally(() => setLoading(false));
+        .catch((err) => console.warn(err.message));
     }
   }, [id]);
 
   const { addToCart } = useCart();
-
   const increaseQuantity = () => setQuantity((prev) => prev + 1);
   const decreaseQuantity = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
@@ -69,7 +61,6 @@ const ProductDetails = () => {
 
   return (
     <main className="product-details-page">
-      {/* Breadcrumb */}
       <div className="product-breadcrumb">
         <Link to="/">Home</Link>
         <span>/</span>
@@ -78,11 +69,7 @@ const ProductDetails = () => {
         <strong>{product.name}</strong>
       </div>
 
-      {loading && <p style={{ textAlign: "center", margin: "20px 0" }}>Loading product details...</p>}
-
-      {/* ================= PRODUCT MAIN ================= */}
       <section className="product-main">
-        {/* Gallery */}
         <div className="product-gallery">
           <div className="thumbnail-list">
             {[productImage, productImage, productImage].map((img, index) => (
@@ -97,26 +84,21 @@ const ProductDetails = () => {
             ))}
           </div>
 
-          {/* Main Image */}
           <div className="main-product-image">
             <img src={productImage} alt={product.name} />
           </div>
         </div>
 
-        {/* ================= PRODUCT INFO ================= */}
         <div className="product-info">
           <h1>{product.name?.toUpperCase()}</h1>
 
-          {/* Rating */}
           <div className="rating-row">
             <span className="stars">★★★★★</span>
             <span className="rating-number">{product.rating || 4.5}/5</span>
           </div>
 
-          {/* Price */}
           <div className="price-row">
             <span className="product-price">${product.price}</span>
-
             {product.oldPrice && (
               <>
                 <span className="old-price">${product.oldPrice}</span>
@@ -125,7 +107,6 @@ const ProductDetails = () => {
             )}
           </div>
 
-          {/* Description from Database */}
           <p className="product-description">
             {product.description ||
               "This graphic t-shirt is perfect for any occasion. Crafted from a soft and breathable fabric, it offers exceptional comfort and style."}
@@ -133,16 +114,13 @@ const ProductDetails = () => {
 
           <div className="product-line"></div>
 
-          {/* ================= COLORS ================= */}
           <div className="option-section">
             <p className="option-title">Select Colors</p>
-
             <div className="color-options">
               {["brown", "green", "navy"].map((color) => (
                 <button
                   key={color}
                   type="button"
-                  aria-label={color}
                   className={`color color-${color} ${selectedColor === color ? "selected" : ""}`}
                   onClick={() => setSelectedColor(color)}
                 >
@@ -154,10 +132,8 @@ const ProductDetails = () => {
 
           <div className="product-line"></div>
 
-          {/* ================= SIZE ================= */}
           <div className="option-section">
             <p className="option-title">Choose Size</p>
-
             <div className="size-options">
               {["Small", "Medium", "Large", "X-Large"].map((size) => (
                 <button
@@ -174,7 +150,6 @@ const ProductDetails = () => {
 
           <div className="product-line"></div>
 
-          {/* ================= QUANTITY + CART ================= */}
           <div className="purchase-row">
             <div className="quantity-box">
               <button type="button" onClick={decreaseQuantity}>−</button>
@@ -189,7 +164,6 @@ const ProductDetails = () => {
         </div>
       </section>
 
-      {/* ================= REVIEWS / RECOMMENDATIONS ================= */}
       <Reviews />
       <ProductRecommendations />
     </main>
