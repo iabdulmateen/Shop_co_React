@@ -1,0 +1,389 @@
+.product-recommendations {
+  width: 100%;
+  max-width: 1440px;
+  margin: 70px auto 80px;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.recommendations-title {
+  margin: 0 0 45px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 800;
+  color: #111;
+}
+
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.recommendation-card {
+  min-width: 0;
+}
+
+.recommendation-image {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #f2f2f2;
+}
+
+.recommendation-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.recommendation-card:hover
+.recommendation-image img {
+  transform: scale(1.04);
+}
+
+.recommendation-card h3 {
+  margin: 14px 0 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+}
+
+.recommendation-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #555;
+}
+
+.recommendation-stars {
+  color: #ffc633;
+  letter-spacing: 1px;
+  font-size: 16px;
+}
+
+.recommendation-price {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 8px;
+}
+
+.current-price {
+  font-size: 19px;
+  font-weight: 700;
+  color: #111;
+}
+
+.recommendation-old-price {
+  font-size: 17px;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.recommendation-discount {
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: #ffe5e5;
+  color: #f33;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   RESPONSIVE — 8 BREAKPOINT SYSTEM
+   1200 → 1024 → 768 → 600 → 480 → 375 → 320 → 250 (lock)
+========================================================= */
+
+/* ===== 1200px ===== */
+@media (max-width: 1200px) {
+  .product-recommendations {
+    padding: 0 30px;
+  }
+
+  .recommendations-title {
+    font-size: 29px;
+    margin-bottom: 38px;
+  }
+
+  .recommendations-grid {
+    gap: 18px;
+  }
+
+  .recommendation-image {
+    height: 280px;
+  }
+}
+
+
+/* ===== 1024px ===== */
+@media (max-width: 1024px) {
+  .product-recommendations {
+    padding: 0 25px;
+  }
+
+  .recommendations-title {
+    font-size: 28px;
+    margin-bottom: 35px;
+  }
+
+  .recommendations-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px 16px;
+  }
+
+  .recommendation-image {
+    height: 260px;
+  }
+}
+
+
+/* ===== 768px ===== */
+@media (max-width: 768px) {
+  .product-recommendations {
+    margin: 55px auto 65px;
+    padding: 0 20px;
+  }
+
+  .recommendations-title {
+    font-size: 25px;
+    margin-bottom: 30px;
+  }
+
+  .recommendations-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 15px;
+  }
+
+  .recommendation-image {
+    height: 240px;
+  }
+}
+
+
+/* ===== 600px ===== */
+@media (max-width: 600px) {
+  .product-recommendations {
+    margin: 50px auto 60px;
+    padding: 0 16px;
+  }
+
+  .recommendations-title {
+    font-size: 24px;
+    margin-bottom: 28px;
+  }
+
+  .recommendations-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px 12px;
+  }
+
+  .recommendation-image {
+    height: 210px;
+    border-radius: 10px;
+  }
+
+  .recommendation-card h3 {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .recommendation-rating {
+    gap: 5px;
+    font-size: 10px;
+  }
+
+  .recommendation-stars {
+    font-size: 12px;
+  }
+
+  .current-price {
+    font-size: 16px;
+  }
+
+  .recommendation-old-price {
+    font-size: 14px;
+  }
+
+  .recommendation-discount {
+    font-size: 9px;
+    padding: 4px 7px;
+  }
+}
+
+
+/* ===== 480px ===== */
+@media (max-width: 480px) {
+  .product-recommendations {
+    margin: 40px auto 50px;
+    padding: 0 12px;
+  }
+
+  .recommendations-title {
+    font-size: 20px;
+    margin-bottom: 22px;
+  }
+
+  .recommendations-grid {
+    gap: 20px 10px;
+  }
+
+  .recommendation-image {
+    height: 175px;
+    border-radius: 9px;
+  }
+
+  .recommendation-card h3 {
+    font-size: 11px;
+  }
+
+  .current-price {
+    font-size: 14px;
+  }
+
+  .recommendation-old-price {
+    font-size: 12px;
+  }
+}
+
+
+/* ===== 375px ===== */
+@media (max-width: 375px) {
+  .product-recommendations {
+    margin: 35px auto 45px;
+    padding: 0 10px;
+  }
+
+  .recommendations-title {
+    font-size: 18px;
+    margin-bottom: 18px;
+  }
+
+  .recommendations-grid {
+    gap: 16px 8px;
+  }
+
+  .recommendation-image {
+    height: 150px;
+    border-radius: 8px;
+  }
+
+  .recommendation-card h3 {
+    font-size: 10px;
+    margin: 10px 0 6px;
+  }
+
+  .recommendation-rating {
+    font-size: 9px;
+  }
+
+  .recommendation-stars {
+    font-size: 11px;
+  }
+
+  .current-price {
+    font-size: 13px;
+  }
+
+  .recommendation-old-price {
+    font-size: 11px;
+  }
+
+  .recommendation-discount {
+    font-size: 8px;
+    padding: 3px 6px;
+  }
+}
+
+
+/* ===== 320px ===== */
+@media (max-width: 320px) {
+  .product-recommendations {
+    margin: 30px auto 40px;
+    padding: 0 8px;
+  }
+
+  .recommendations-title {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .recommendations-grid {
+    gap: 14px 6px;
+  }
+
+  .recommendation-image {
+    height: 125px;
+    border-radius: 7px;
+  }
+
+  .recommendation-card h3 {
+    font-size: 9px;
+  }
+
+  .current-price {
+    font-size: 12px;
+  }
+
+  .recommendation-old-price {
+    font-size: 10px;
+  }
+}
+
+
+/* ===== 250px — LOCK POINT ===== */
+@media (max-width: 250px) {
+  .product-recommendations {
+    min-width: 250px;
+    overflow-x: auto;
+    margin: 25px auto 30px;
+    padding: 0 6px;
+  }
+
+  .recommendations-title {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .recommendations-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 5px;
+  }
+
+  .recommendation-image {
+    height: 95px;
+    border-radius: 6px;
+  }
+
+  .recommendation-card h3 {
+    font-size: 8px;
+    margin: 6px 0 4px;
+  }
+
+  .recommendation-rating {
+    font-size: 7px;
+  }
+
+  .recommendation-stars {
+    font-size: 9px;
+  }
+
+  .current-price {
+    font-size: 10px;
+  }
+
+  .recommendation-old-price {
+    font-size: 9px;
+  }
+
+  .recommendation-discount {
+    font-size: 7px;
+    padding: 2px 5px;
+  }
+}

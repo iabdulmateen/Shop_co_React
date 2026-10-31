@@ -1,0 +1,297 @@
+.filter-sidebar {
+  width: 100%;
+  max-width: 280px;
+  min-width: 250px;
+  border: 1px solid #e5e5e5;
+  border-radius: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.filter-block {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+}
+
+.filter-block:last-of-type {
+  border-bottom: none;
+}
+
+.filter-category-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+}
+
+.filter-category-row:hover {
+  color: #000;
+}
+
+.active-category {
+  color: #000;
+  font-weight: 600;
+}
+
+.filter-title {
+  font-weight: 600;
+  font-size: 15px;
+  margin: 0 0 12px;
+}
+
+.price-slider {
+  width: 100%;
+  accent-color: #000;
+}
+
+.price-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #777;
+  margin-top: 6px;
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.color-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.white-swatch {
+  border: 1px solid #ddd;
+}
+
+.size-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.size-chip {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 13px;
+  color: #555;
+  cursor: pointer;
+}
+
+.size-chip.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.apply-filter-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 25px;
+  border: none;
+  background: #000;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* 1200px - Large Desktop */
+@media (max-width: 1200px) {
+  .filter-sidebar {
+    max-width: 260px;
+  }
+}
+
+/* 1024px - Tablet Landscape */
+@media (max-width: 1024px) {
+  .filter-sidebar {
+    max-width: 240px;
+    padding: 18px;
+  }
+}
+
+/* 768px - Tablet Portrait */
+@media (max-width: 768px) {
+  .filter-sidebar {
+    max-width: 100%;
+  }
+}
+
+/* 600px - Large Mobile */
+@media (max-width: 600px) {
+  .filter-sidebar {
+    padding: 16px;
+  }
+
+  .filter-header {
+    font-size: 17px;
+  }
+
+  .color-swatch {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* 480px - Mobile */
+@media (max-width: 480px) {
+  .filter-sidebar {
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .filter-header {
+    font-size: 16px;
+    margin-bottom: 14px;
+  }
+
+  .filter-category-row {
+    font-size: 13px;
+  }
+
+  .filter-title {
+    font-size: 14px;
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+
+  .color-swatch {
+    width: 24px;
+    height: 24px;
+  }
+
+  .size-chip {
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+
+  .apply-filter-btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+/* 375px - Small Mobile */
+@media (max-width: 375px) {
+  .filter-sidebar {
+    padding: 12px;
+  }
+
+  .filter-header {
+    font-size: 15px;
+  }
+
+  .filter-category-row {
+    font-size: 12.5px;
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .size-chip {
+    padding: 6px 10px;
+    font-size: 11.5px;
+  }
+}
+
+/* 320px - Extra Small Mobile */
+@media (max-width: 320px) {
+  .filter-sidebar {
+    padding: 10px;
+  }
+
+  .filter-header {
+    font-size: 14px;
+  }
+
+  .filter-category-row {
+    font-size: 12px;
+    padding: 6px 0;
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .color-swatch {
+    width: 22px;
+    height: 22px;
+  }
+
+  .size-chip {
+    padding: 6px 9px;
+    font-size: 11px;
+  }
+
+  .apply-filter-btn {
+    padding: 11px;
+    font-size: 13px;
+  }
+}
+
+/* 250px - Minimum Lock Point */
+@media (max-width: 250px) {
+  .filter-sidebar {
+    padding: 8px;
+  }
+
+  .filter-header {
+    font-size: 13px;
+  }
+
+  .filter-category-row {
+    font-size: 11px;
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+  }
+
+  .color-swatch {
+    width: 20px;
+    height: 20px;
+  }
+
+  .size-chip {
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+
+  .apply-filter-btn {
+    padding: 10px;
+    font-size: 12px;
+  }
+}
