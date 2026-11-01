@@ -94,13 +94,21 @@ export const CartProvider = ({ children }) => {
     if (cart.length === 0) throw new Error("Cart is empty");
 
     const orderData = {
-      orderItems: cart.map((item) => ({
-        name: item.name,
-        qty: item.quantity,
-        price: item.price,
-        imageUrl: item.image || item.imageUrl,
-        product: item._id || item.id,
-      })),
+      orderItems: cart.map((item) => {
+        // Agar ID real 24-character ObjectId ho to hi bhejein, warna omit karein
+        const isMongoId =
+          typeof item.id === "string" &&
+          item.id.length === 24 &&
+          /^[0-9a-fA-F]{24}$/.test(item.id);
+
+        return {
+          name: item.name,
+          qty: item.quantity || 1,
+          price: item.price,
+          imageUrl: item.image || item.imageUrl || "",
+          ...(isMongoId ? { product: item.id } : {}),
+        };
+      }),
       shippingAddress: shippingAddress || {
         address: "Main Boulevard",
         city: "Karachi",
@@ -116,7 +124,6 @@ export const CartProvider = ({ children }) => {
     clearCart();
     return res.data;
   };
-
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
   const cartTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
