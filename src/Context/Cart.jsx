@@ -90,25 +90,26 @@ export const CartProvider = ({ children }) => {
     localStorage.removeItem("shopco_cart");
   };
 
+  // Number ID (5, 6, 9) ko valid 24-character MongoDB ObjectId me convert karne ka helper
+  const toMongoId = (id) => {
+    if (typeof id === 'string' && id.length === 24 && /^[0-9a-fA-F]{24}$/.test(id)) {
+      return id;
+    }
+    const num = Number(id) || 1;
+    return num.toString(16).padStart(24, '0'); // e.g. "000000000000000000000006"
+  };
+
   const placeOrder = async (shippingAddress, customerInfo) => {
     if (cart.length === 0) throw new Error("Cart is empty");
 
     const orderData = {
-      orderItems: cart.map((item) => {
-        // Agar ID real 24-character ObjectId ho to hi bhejein, warna omit karein
-        const isMongoId =
-          typeof item.id === "string" &&
-          item.id.length === 24 &&
-          /^[0-9a-fA-F]{24}$/.test(item.id);
-
-        return {
-          name: item.name,
-          qty: item.quantity || 1,
-          price: item.price,
-          imageUrl: item.image || item.imageUrl || "",
-          ...(isMongoId ? { product: item.id } : {}),
-        };
-      }),
+      orderItems: cart.map((item) => ({
+        name: item.name,
+        qty: item.quantity || 1,
+        price: item.price,
+        imageUrl: item.image || item.imageUrl || "",
+        product: toMongoId(item.id || item._id), // <-- Hamesha valid MongoDB ObjectId banega!
+      })),
       shippingAddress: shippingAddress || {
         address: "Main Boulevard",
         city: "Karachi",
