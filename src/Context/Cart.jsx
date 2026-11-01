@@ -90,13 +90,13 @@ export const CartProvider = ({ children }) => {
     localStorage.removeItem("shopco_cart");
   };
 
-  // Number ID (5, 6, 9) ko valid 24-character MongoDB ObjectId me convert karne ka helper
+  // Har kisam ki ID (1, 2, 5, 6, ya MongoDB ID) ko valid 24-character ObjectId banana
   const toMongoId = (id) => {
     if (typeof id === 'string' && id.length === 24 && /^[0-9a-fA-F]{24}$/.test(id)) {
       return id;
     }
-    const num = Number(id) || 1;
-    return num.toString(16).padStart(24, '0'); // e.g. "000000000000000000000006"
+    const cleanNum = Number(String(id || '1').replace(/\D/g, '')) || 1;
+    return cleanNum.toString(16).padStart(24, '0'); // e.g. "000000000000000000000006"
   };
 
   const placeOrder = async (shippingAddress, customerInfo) => {
@@ -108,7 +108,7 @@ export const CartProvider = ({ children }) => {
         qty: item.quantity || 1,
         price: item.price,
         imageUrl: item.image || item.imageUrl || "",
-        product: toMongoId(item.id || item._id), // <-- Hamesha valid MongoDB ObjectId banega!
+        product: toMongoId(item.id || item._id), // 👈 Yeh hamesha valid ID bhejega, kabhi khali nahi chhoray ga!
       })),
       shippingAddress: shippingAddress || {
         address: "Main Boulevard",
