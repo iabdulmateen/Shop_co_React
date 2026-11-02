@@ -14,13 +14,13 @@ import HappyCustomers from "./Components/HappyCustomers/HappyCustomers";
 import ProductDetails from "./Pages/ProductDetails/ProductDetails";
 import Category from "./Pages/Category/Category";
 import Cart from "./Pages/Cart/Cart";
-import Wishlist from "./Pages/Wishlist/Wishlist";
 import Orders from "./Pages/Orders/Orders";
 import Login from "./Pages/Auth/Login";
 import Profile from "./Pages/Profile/Profile";
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import NotFound from "./Pages/NotFound/NotFound";
 import ScrollToTop from "./Components/ScrollToTop/ScrollToTop";
+import { FooterInfoPage } from "./Pages/FooterPages/FooterInfoPage";
 
 function Home() {
   return (
@@ -43,32 +43,36 @@ function App() {
       <Navbar />
 
       <Routes>
-        {/* Home Page */}
+        {/* Core Store Routes */}
         <Route path="/" element={<Home />} />
-
-        {/* Product Details Page */}
         <Route path="/product/:id" element={<ProductDetails />} />
-
-        {/* Category Page */}
         <Route path="/category" element={<Category />} />
-
-        {/* Cart Page */}
         <Route path="/cart" element={<Cart />} />
-
-        {/* Wishlist Page */}
-        <Route path="/wishlist" element={<Wishlist />} />
-
-        {/* Orders Tracking Page */}
         <Route path="/orders" element={<Orders />} />
-
-        {/* Authentication Page */}
         <Route path="/login" element={<Login />} />
-
-        {/* User Profile */}
+        <Route path="/account" element={<Profile />} />
         <Route path="/profile" element={<Profile />} />
-
-        {/* Admin Dashboard & External Connector */}
         <Route path="/admin" element={<AdminDashboard />} />
+
+        {/* Dedicated Pages for Every Footer Link */}
+        <Route path="/about" element={<FooterInfoPage pageKey="about" />} />
+        <Route path="/features" element={<FooterInfoPage pageKey="features" />} />
+        <Route path="/works" element={<FooterInfoPage pageKey="works" />} />
+        <Route path="/career" element={<FooterInfoPage pageKey="career" />} />
+
+        <Route path="/customer-support" element={<FooterInfoPage pageKey="customer-support" />} />
+        <Route path="/delivery-details" element={<FooterInfoPage pageKey="delivery-details" />} />
+        <Route path="/terms" element={<FooterInfoPage pageKey="terms" />} />
+        <Route path="/privacy" element={<FooterInfoPage pageKey="privacy" />} />
+
+        <Route path="/manage-deliveries" element={<FooterInfoPage pageKey="manage-deliveries" />} />
+        <Route path="/payments" element={<FooterInfoPage pageKey="payments" />} />
+
+        <Route path="/free-ebooks" element={<FooterInfoPage pageKey="free-ebooks" />} />
+        <Route path="/development-tutorial" element={<FooterInfoPage pageKey="development-tutorial" />} />
+        <Route path="/how-to-blog" element={<FooterInfoPage pageKey="how-to-blog" />} />
+        <Route path="/youtube-playlist" element={<FooterInfoPage pageKey="youtube-playlist" />} />
+        <Route path="/brands" element={<FooterInfoPage pageKey="brands" />} />
 
         {/* 404 Not Found Fallback */}
         <Route path="*" element={<NotFound />} />

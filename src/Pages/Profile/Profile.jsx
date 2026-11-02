@@ -2,13 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext.jsx";
 import { useOrders } from "../../Context/OrdersContext.jsx";
-import { useWishlist } from "../../Context/WishlistContext.jsx";
 import { useToast } from "../../Context/ToastContext.jsx";
 
 const Profile = () => {
   const { user, updateProfile, logout, isAdmin } = useAuth();
   const { orders } = useOrders();
-  const { wishlistCount } = useWishlist();
   const { showToast } = useToast();
 
   const [isEditing, setIsEditing] = useState(false);
@@ -105,8 +103,8 @@ const Profile = () => {
               <div style={{ fontSize: "12px", color: "#64748b" }}>Orders</div>
             </div>
             <div>
-              <div style={{ fontSize: "20px", fontWeight: "800" }}>{wishlistCount}</div>
-              <div style={{ fontSize: "12px", color: "#64748b" }}>Wishlist</div>
+              <div style={{ fontSize: "20px", fontWeight: "800", color: "#10b981" }}>Active</div>
+              <div style={{ fontSize: "12px", color: "#64748b" }}>Status</div>
             </div>
           </div>
 
@@ -127,21 +125,6 @@ const Profile = () => {
               📦 View My Orders
             </Link>
 
-            <Link
-              to="/wishlist"
-              style={{
-                display: "block",
-                padding: "10px",
-                borderRadius: "8px",
-                backgroundColor: "#f8fafc",
-                color: "#0f172a",
-                textDecoration: "none",
-                fontSize: "14px",
-                fontWeight: "600",
-              }}
-            >
-              ♡ View My Wishlist
-            </Link>
 
             {isAdmin && (
               <Link

@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Hero.css";
 import hero from "../../assets/Rectangle 2.png";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="hero">
-
       <div className="hero-content">
-
         <h1 className="hero-title">
           FIND CLOTHES
           <br />
@@ -21,12 +21,15 @@ const Hero = () => {
           designed to bring out your individuality and cater to your sense of style.
         </p>
 
-        <Link to="/category" className="hero-button" style={{ display: "inline-block", textAlign: "center", textDecoration: "none" }}>
+        <button
+          type="button"
+          className="hero-button"
+          onClick={() => navigate("/category")}
+        >
           Shop Now
-        </Link>
+        </button>
 
         <div className="hero-stats">
-
           <div className="hero-stat">
             <h3>200+</h3>
             <p>International Brands</p>
@@ -41,30 +44,18 @@ const Hero = () => {
             <h3>30,000+</h3>
             <p>Happy Customers</p>
           </div>
-
         </div>
-
       </div>
 
-
       <div className="hero-image-container">
-
-        <span className="hero-star hero-star-top">
-          ✦
-        </span>
-
-        <span className="hero-star hero-star-middle">
-          ✦
-        </span>
-
+        <span className="hero-star hero-star-top">✦</span>
+        <span className="hero-star hero-star-middle">✦</span>
         <img
           src={hero}
           alt="Fashion Models"
           className="hero-models"
         />
-
       </div>
-
     </section>
   );
 };

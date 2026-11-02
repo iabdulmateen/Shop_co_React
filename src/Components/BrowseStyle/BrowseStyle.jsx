@@ -9,27 +9,27 @@ import gym from "../../assets/gym.png";
 const styles = [
   {
     id: 1,
-    name: "Casual",
     image: casual,
     className: "casual",
+    slug: "casual",
   },
   {
     id: 2,
-    name: "Formal",
     image: formal,
     className: "formal",
+    slug: "formal",
   },
   {
     id: 3,
-    name: "Party",
     image: party,
     className: "party",
+    slug: "party",
   },
   {
     id: 4,
-    name: "Gym",
     image: gym,
     className: "gym",
+    slug: "gym",
   },
 ];
 
@@ -44,16 +44,15 @@ const BrowseStyle = () => {
         <div className="style-grid">
           {styles.map((style) => (
             <Link
-              to={`/category?style=${style.name.toLowerCase()}`}
+              to={`/category?style=${style.slug}`}
               className={`style-card ${style.className}`}
               key={style.id}
-              style={{ textDecoration: "none", color: "inherit", cursor: "pointer", display: "block" }}
+              title={`Browse ${style.slug} style`}
             >
               <img
                 src={style.image}
-                alt={style.name}
+                alt={`${style.slug} style`}
               />
-              <h3>{style.name}</h3>
             </Link>
           ))}
         </div>
