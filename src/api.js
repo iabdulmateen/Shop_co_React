@@ -8,9 +8,8 @@ const isLocalhost = Boolean(
 );
 
 const API = axios.create({
-  baseURL: isLocalhost
-    ? 'http://localhost:3000/api'
-    : 'https://ais-dev-geynvtiflfsjoiww63vmvl-105721519656.asia-southeast1.run.app/api',
+  baseURL: import.meta.env.VITE_API_URL || (isLocalhost ? 'http://localhost:3000/api' : '/api'),
+  timeout: 5000,
 });
 
 // Agar user login ho to token automatically attach ho jaye

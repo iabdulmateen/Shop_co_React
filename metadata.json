@@ -1,0 +1,7 @@
+{
+  "name": "Shop.co E-Commerce",
+  "description": "Modern online fashion and apparel store with collections, product browsing, dynamic filtering, interactive shopping cart, and checkout.",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

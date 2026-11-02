@@ -9,6 +9,7 @@ const Cart = () => {
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(null);
+  const [formError, setFormError] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -25,8 +26,9 @@ const Cart = () => {
 
   const handleCheckoutSubmit = async (e) => {
     e.preventDefault();
+    setFormError("");
     if (!formData.name || !formData.address || !formData.phone) {
-      alert("Please fill Name, Phone, and Address");
+      setFormError("Please fill Name, Phone, and Address");
       return;
     }
 
@@ -45,7 +47,7 @@ const Cart = () => {
       setOrderPlaced(order);
       setShowCheckoutModal(false);
     } catch (err) {
-      alert(err.response?.data?.error || err.message || "Failed to place order");
+      setFormError(err.response?.data?.error || err.message || "Failed to place order");
     } finally {
       setLoading(false);
     }
@@ -179,6 +181,20 @@ const Cart = () => {
           }}>
             <h2 style={{ margin: "0 0 16px 0", fontSize: "22px" }}>Shipping & Delivery Details</h2>
             
+            {formError && (
+              <div style={{
+                backgroundColor: "#fff5f5",
+                color: "#c53030",
+                padding: "10px 14px",
+                borderRadius: "8px",
+                fontSize: "14px",
+                marginBottom: "14px",
+                border: "1px solid #feb2b2"
+              }}>
+                {formError}
+              </div>
+            )}
+
             <form onSubmit={handleCheckoutSubmit}>
               <div style={{ marginBottom: "12px" }}>
                 <label style={{ display: "block", fontSize: "14px", fontWeight: "600", marginBottom: "4px" }}>Full Name *</label>
