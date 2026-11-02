@@ -1,38 +1,22 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useMemo } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import FilterSidebar from "../../Components/FilterSidebar/FilterSidebar";
 import ProductCard from "../../Components/ProductCard/ProductCard";
+import { initialProducts } from "../../data/products.js";
 import "./Category.css";
 
-import cloth9 from "../../assets/cloth9.png";
-import cloth11 from "../../assets/cloth11.png";
-import cloth12 from "../../assets/cloth12.png";
-import cloth2 from "../../assets/cloth2.png";
-import cloth3 from "../../assets/cloth3.png";
-import cloth4 from "../../assets/cloth4.png";
-import cloth5 from "../../assets/cloth5.png";
-import cloth6 from "../../assets/cloth6.png";
-import cloth7 from "../../assets/cloth7.png";
-
-const categoryProducts = [
-  { id: 9, name: "Gradient Graphic T-shirt", price: 145, rating: 3.5, image: cloth9, category: "T-shirts", color: "#ffffff" },
-  { id: 10, name: "Polo with Tipping Details", price: 180, rating: 4.5, image: cloth11, category: "Shirts", color: "#dc2626" },
-  { id: 11, name: "Black Striped T-shirt", price: 120, oldPrice: 150, discount: 30, rating: 5.0, image: cloth12, category: "T-shirts", color: "#111111" },
-  { id: 2, name: "Skinny Fit Jeans", price: 240, oldPrice: 260, discount: 20, rating: 3.5, image: cloth2, category: "Jeans", color: "#2563eb" },
-  { id: 3, name: "Checkered Shirt", price: 180, rating: 4.5, image: cloth3, category: "Shirts", color: "#dc2626" },
-  { id: 4, name: "Sleeve Striped T-shirt", price: 130, oldPrice: 160, discount: 30, rating: 4.5, image: cloth4, category: "T-shirts", color: "#ea580c" },
-  { id: 5, name: "Vertical Striped Shirt", price: 212, oldPrice: 232, discount: 20, rating: 5.0, image: cloth5, category: "Shirts", color: "#16a34a" },
-  { id: 6, name: "Courage Graphic T-shirt", price: 145, rating: 4.0, image: cloth6, category: "T-shirts", color: "#ea580c" },
-  { id: 7, name: "Loose Fit Bermuda Shorts", price: 80, rating: 3.0, image: cloth7, category: "Shorts", color: "#2563eb" },
-];
-
 const Category = () => {
-  // Sidebar mein abhi jo select ho raha hai (Apply se pehle)
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParam = searchParams.get("search") || "";
+  const styleParam = searchParams.get("style") || "";
+  const filterParam = searchParams.get("filter") || "";
+
+  // Filter selections
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [maxPrice, setMaxPrice] = useState(500);
+  const [sortBy, setSortBy] = useState("popular");
 
-  // Jo actually "Apply Filter" dabane par lagu hota hai
   const [appliedFilters, setAppliedFilters] = useState({
     category: null,
     color: null,
@@ -40,7 +24,7 @@ const Category = () => {
   });
 
   const [currentPage, setCurrentPage] = useState(1);
-  const pageNumbers = [1, 2, 3, "...", 8, 9, 10];
+  const pageNumbers = [1, 2, 3];
 
   const handleApplyFilter = () => {
     setAppliedFilters({
@@ -48,28 +32,96 @@ const Category = () => {
       color: selectedColor,
       maxPrice: maxPrice,
     });
+    setCurrentPage(1);
   };
 
-  const filteredProducts = categoryProducts.filter((product) => {
-    const matchesCategory = appliedFilters.category
-      ? product.category === appliedFilters.category
-      : true;
+  const handleClearFilters = () => {
+    setSelectedCategory(null);
+    setSelectedColor(null);
+    setMaxPrice(500);
+    setAppliedFilters({ category: null, color: null, maxPrice: 500 });
+    setSearchParams({});
+    setCurrentPage(1);
+  };
 
-    const matchesColor = appliedFilters.color
-      ? product.color === appliedFilters.color
-      : true;
+  const filteredAndSortedProducts = useMemo(() => {
+    let result = [...initialProducts];
 
-    const matchesPrice = product.price <= appliedFilters.maxPrice;
+    // Filter by search query if in URL
+    if (searchParam) {
+      const q = searchParam.toLowerCase();
+      result = result.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q) ||
+          (p.style && p.style.toLowerCase().includes(q))
+      );
+    }
 
-    return matchesCategory && matchesColor && matchesPrice;
-  });
+    // Filter by dress style if in URL
+    if (styleParam) {
+      result = result.filter(
+        (p) => p.style && p.style.toLowerCase() === styleParam.toLowerCase()
+      );
+    }
+
+    // Filter by sale or new arrivals
+    if (filterParam === "sale") {
+      result = result.filter((p) => p.discount || p.isSale);
+    } else if (filterParam === "new") {
+      result = result.filter((p) => p.isNew);
+    }
+
+    // Applied sidebar filters
+    if (appliedFilters.category) {
+      result = result.filter((p) => p.category === appliedFilters.category);
+    }
+    if (appliedFilters.color) {
+      result = result.filter((p) => p.color === appliedFilters.color);
+    }
+    result = result.filter((p) => p.price <= appliedFilters.maxPrice);
+
+    // Sorting
+    if (sortBy === "price-low") {
+      result.sort((a, b) => a.price - b.price);
+    } else if (sortBy === "price-high") {
+      result.sort((a, b) => b.price - a.price);
+    } else if (sortBy === "rating") {
+      result.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    }
+
+    return result;
+  }, [searchParam, styleParam, filterParam, appliedFilters, sortBy]);
+
+  // Page title
+  const pageTitle = searchParam
+    ? `Search: "${searchParam}"`
+    : styleParam
+    ? `${styleParam.charAt(0).toUpperCase() + styleParam.slice(1)} Collection`
+    : filterParam === "sale"
+    ? "On Sale Deals"
+    : filterParam === "new"
+    ? "New Arrivals"
+    : appliedFilters.category || "All Products";
 
   return (
     <div className="category-page">
       <div className="category-breadcrumb">
         <Link to="/">Home</Link>
         <span>/</span>
-        <strong>Casual</strong>
+        <Link to="/category">Shop</Link>
+        {styleParam && (
+          <>
+            <span>/</span>
+            <strong>{styleParam.charAt(0).toUpperCase() + styleParam.slice(1)}</strong>
+          </>
+        )}
+        {searchParam && (
+          <>
+            <span>/</span>
+            <strong>Search: "{searchParam}"</strong>
+          </>
+        )}
       </div>
 
       <div className="category-layout">
@@ -85,22 +137,80 @@ const Category = () => {
 
         <div className="category-main">
           <div className="category-header">
-            <h1>Casual</h1>
+            <div>
+              <h1 style={{ textTransform: "capitalize" }}>{pageTitle}</h1>
+              {(searchParam || styleParam || filterParam || appliedFilters.category || appliedFilters.color) && (
+                <button
+                  onClick={handleClearFilters}
+                  style={{
+                    marginTop: "6px",
+                    background: "none",
+                    border: "none",
+                    color: "#ef4444",
+                    fontSize: "12px",
+                    cursor: "pointer",
+                    padding: 0,
+                    textDecoration: "underline",
+                  }}
+                >
+                  ✕ Clear all active filters
+                </button>
+              )}
+            </div>
+
             <div className="category-sort">
               <span>
-                Showing {filteredProducts.length} of {categoryProducts.length} Products
+                Showing {filteredAndSortedProducts.length} of {initialProducts.length} Products
               </span>
-              <span className="sort-by">
-                Sort by: <strong>Most Popular</strong>
-              </span>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                <span className="sort-by">Sort by:</span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  style={{
+                    padding: "6px 10px",
+                    borderRadius: "6px",
+                    border: "1px solid #cbd5e1",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    background: "#fff",
+                    cursor: "pointer",
+                  }}
+                >
+                  <option value="popular">Most Popular</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                  <option value="rating">Highest Rated</option>
+                </select>
+              </div>
             </div>
           </div>
 
-          {filteredProducts.length === 0 ? (
-            <p className="no-products">No products match your filters.</p>
+          {filteredAndSortedProducts.length === 0 ? (
+            <div style={{ textAlign: "center", padding: "60px 20px" }}>
+              <i className="fa-solid fa-shirt" style={{ fontSize: "40px", color: "#cbd5e1", marginBottom: "16px" }}></i>
+              <p style={{ fontSize: "16px", color: "#64748b", margin: "0 0 16px 0" }}>
+                No products match your selected filters.
+              </p>
+              <button
+                onClick={handleClearFilters}
+                style={{
+                  padding: "10px 20px",
+                  borderRadius: "20px",
+                  backgroundColor: "#000",
+                  color: "#fff",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                  fontWeight: "600",
+                }}
+              >
+                Reset All Filters
+              </button>
+            </div>
           ) : (
             <div className="category-grid">
-              {filteredProducts.map((product) => (
+              {filteredAndSortedProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
@@ -115,24 +225,20 @@ const Category = () => {
             </button>
 
             <div className="page-numbers">
-              {pageNumbers.map((num, index) =>
-                num === "..." ? (
-                  <span key={index} className="dots">...</span>
-                ) : (
-                  <button
-                    key={index}
-                    className={`page-number ${currentPage === num ? "active" : ""}`}
-                    onClick={() => setCurrentPage(num)}
-                  >
-                    {num}
-                  </button>
-                )
-              )}
+              {pageNumbers.map((num, index) => (
+                <button
+                  key={index}
+                  className={`page-number ${currentPage === num ? "active" : ""}`}
+                  onClick={() => setCurrentPage(num)}
+                >
+                  {num}
+                </button>
+              ))}
             </div>
 
             <button
               className="page-nav"
-              onClick={() => setCurrentPage((p) => p + 1)}
+              onClick={() => setCurrentPage((p) => Math.min(3, p + 1))}
             >
               Next <i className="fa-solid fa-arrow-right"></i>
             </button>

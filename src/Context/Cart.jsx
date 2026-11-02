@@ -1,20 +1,23 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import API from "../api";
+import { useToast } from "./ToastContext";
+import { useOrders } from "./OrdersContext";
 
 const CartContext = createContext();
 
 const toMongoId = (id) => {
-  if (typeof id === 'string' && id.length === 24 && /^[0-9a-fA-F]{24}$/.test(id)) {
+  if (typeof id === "string" && id.length === 24 && /^[0-9a-fA-F]{24}$/.test(id)) {
     return id;
   }
-  const cleanNum = Number(String(id || '1').replace(/\D/g, '')) || 1;
-  return cleanNum.toString(16).padStart(24, '0');
+  const cleanNum = Number(String(id || "1").replace(/\D/g, "")) || 1;
+  return cleanNum.toString(16).padStart(24, "0");
 };
 
 const generateMockOrder = (orderData) => ({
   _id: "ORD-" + Math.random().toString(36).substring(2, 9).toUpperCase(),
   ...orderData,
-  createdAt: new Date().toISOString()
+  status: "Pending",
+  createdAt: new Date().toISOString(),
 });
 
 export const CartProvider = ({ children }) => {
@@ -26,6 +29,12 @@ export const CartProvider = ({ children }) => {
       return [];
     }
   });
+
+  const [promoCode, setPromoCode] = useState("");
+  const [discountPercent, setDiscountPercent] = useState(0);
+
+  const { showToast } = useToast();
+  const { addOrder } = useOrders();
 
   useEffect(() => {
     try {
@@ -66,6 +75,8 @@ export const CartProvider = ({ children }) => {
         },
       ];
     });
+
+    showToast(`Added "${product.name || "Item"}" to cart!`, "success");
   };
 
   const removeFromCart = (id, color, size) => {
@@ -75,6 +86,7 @@ export const CartProvider = ({ children }) => {
           !((item.id === id || item._id === id) && item.color === color && item.size === size)
       )
     );
+    showToast("Item removed from cart", "info");
   };
 
   const increaseQuantity = (id, color, size) => {
@@ -101,10 +113,36 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => {
     setCart([]);
+    setPromoCode("");
+    setDiscountPercent(0);
     localStorage.removeItem("shopco_cart");
   };
 
-  const placeOrder = async (shippingAddress, customerInfo) => {
+  const applyPromo = (code) => {
+    const clean = (code || "").trim().toUpperCase();
+    if (clean === "SHOP20") {
+      setPromoCode("SHOP20");
+      setDiscountPercent(20);
+      showToast("Promo SHOP20 applied! (20% off)", "success");
+      return { success: true, message: "20% discount applied!" };
+    }
+    if (clean === "SAVE10") {
+      setPromoCode("SAVE10");
+      setDiscountPercent(10);
+      showToast("Promo SAVE10 applied! (10% off)", "success");
+      return { success: true, message: "10% discount applied!" };
+    }
+    if (clean === "SHOP50") {
+      setPromoCode("SHOP50");
+      setDiscountPercent(50);
+      showToast("Super Promo SHOP50 applied! (50% off)", "success");
+      return { success: true, message: "50% discount applied!" };
+    }
+    showToast("Invalid promo code. Try SHOP20 or SAVE10", "error");
+    return { success: false, message: "Invalid promo code" };
+  };
+
+  const placeOrder = async (shippingAddress, customerInfo, paymentMethod = "Cash on Delivery", finalTotal) => {
     if (cart.length === 0) throw new Error("Cart is empty");
 
     const orderData = {
@@ -113,6 +151,8 @@ export const CartProvider = ({ children }) => {
         qty: item.quantity || 1,
         price: item.price,
         imageUrl: item.image || item.imageUrl || "",
+        size: item.size || "M",
+        color: item.color || "black",
         product: toMongoId(item.id || item._id),
       })),
       shippingAddress: shippingAddress || {
@@ -122,21 +162,27 @@ export const CartProvider = ({ children }) => {
         country: "Pakistan",
       },
       customerInfo,
-      paymentMethod: "Cash on Delivery",
-      totalPrice: cartTotal,
+      paymentMethod,
+      totalPrice: finalTotal || cartTotal,
+      promoCode: promoCode || null,
+      status: "Processing",
     };
 
+    let placed;
     try {
       const res = await API.post("/orders", orderData);
-      clearCart();
-      return res.data;
+      placed = res.data;
     } catch {
       // In-memory fallback if backend is offline / not running
-      const mockOrder = generateMockOrder(orderData);
-      clearCart();
-      return mockOrder;
+      placed = generateMockOrder(orderData);
     }
+
+    addOrder(placed);
+    clearCart();
+    showToast(`Order #${placed._id} placed successfully!`, "success");
+    return placed;
   };
+
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
   const cartTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -150,6 +196,9 @@ export const CartProvider = ({ children }) => {
         decreaseQuantity,
         clearCart,
         placeOrder,
+        applyPromo,
+        promoCode,
+        discountPercent,
         cartCount,
         cartTotal,
       }}
@@ -159,6 +208,5 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-// The hook shares this module with the provider component; keep Fast Refresh enabled here.
 // eslint-disable-next-line react-refresh/only-export-components
 export const useCart = () => useContext(CartContext);

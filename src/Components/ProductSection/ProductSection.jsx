@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./ProductSection.css";
 import API from "../../api";
 import ProductCard from "../ProductCard/ProductCard";
@@ -17,7 +18,6 @@ const fallbackProducts = [
 
 const ProductSection = () => {
   const [products, setProducts] = useState(fallbackProducts);
-  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     API.get("/products")
@@ -27,7 +27,7 @@ const ProductSection = () => {
       .catch((err) => console.warn("Using fallback items:", err.message));
   }, []);
 
-  const displayedProducts = showAll ? products : products.slice(0, 4);
+  const displayedProducts = products.slice(0, 4);
 
   return (
     <section className="product-section">
@@ -39,11 +39,15 @@ const ProductSection = () => {
         ))}
       </div>
 
-      {!showAll && products.length > 4 && (
-        <button className="view-all-btn" onClick={() => setShowAll(true)}>
-          View All
-        </button>
-      )}
+      <div style={{ textAlign: "center", marginTop: "30px" }}>
+        <Link
+          to="/category?filter=new"
+          className="view-all-btn"
+          style={{ display: "inline-block", textDecoration: "none" }}
+        >
+          View All New Arrivals
+        </Link>
+      </div>
     </section>
   );
 };

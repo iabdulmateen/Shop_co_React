@@ -14,8 +14,13 @@ import HappyCustomers from "./Components/HappyCustomers/HappyCustomers";
 import ProductDetails from "./Pages/ProductDetails/ProductDetails";
 import Category from "./Pages/Category/Category";
 import Cart from "./Pages/Cart/Cart";
+import Wishlist from "./Pages/Wishlist/Wishlist";
+import Orders from "./Pages/Orders/Orders";
+import Login from "./Pages/Auth/Login";
+import Profile from "./Pages/Profile/Profile";
+import AdminDashboard from "./Pages/Admin/AdminDashboard";
+import NotFound from "./Pages/NotFound/NotFound";
 import ScrollToTop from "./Components/ScrollToTop/ScrollToTop";
-
 
 function Home() {
   return (
@@ -30,17 +35,14 @@ function Home() {
   );
 }
 
-
 function App() {
   return (
     <>
-    <ScrollToTop/>
+      <ScrollToTop />
       <Announcement />
-
       <Navbar />
 
       <Routes>
-
         {/* Home Page */}
         <Route path="/" element={<Home />} />
 
@@ -53,14 +55,29 @@ function App() {
         {/* Cart Page */}
         <Route path="/cart" element={<Cart />} />
 
+        {/* Wishlist Page */}
+        <Route path="/wishlist" element={<Wishlist />} />
+
+        {/* Orders Tracking Page */}
+        <Route path="/orders" element={<Orders />} />
+
+        {/* Authentication Page */}
+        <Route path="/login" element={<Login />} />
+
+        {/* User Profile */}
+        <Route path="/profile" element={<Profile />} />
+
+        {/* Admin Dashboard & External Connector */}
+        <Route path="/admin" element={<AdminDashboard />} />
+
+        {/* 404 Not Found Fallback */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <Newsletter />
-
       <Footer />
     </>
   );
 }
-
 
 export default App;

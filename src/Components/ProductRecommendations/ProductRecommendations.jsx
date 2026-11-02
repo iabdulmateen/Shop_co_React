@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./ProductRecommendations.css";
 
 import cloth9 from "../../assets/cloth9.png";
@@ -51,9 +52,12 @@ const ProductRecommendations = () => {
       <div className="recommendations-grid">
 
         {recommendedProducts.map((product) => (
-          <div
+          <Link
+            to={`/product/${product.id}`}
+            state={product}
             className="recommendation-card"
             key={product.id}
+            style={{ textDecoration: "none", color: "inherit", display: "block" }}
           >
 
             <div className="recommendation-image">
@@ -99,7 +103,7 @@ const ProductRecommendations = () => {
 
             </div>
 
-          </div>
+          </Link>
         ))}
 
       </div>

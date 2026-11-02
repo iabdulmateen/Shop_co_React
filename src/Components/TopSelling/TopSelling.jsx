@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./TopSelling.css";
 
 import cloth5 from "../../assets/cloth5.png";
@@ -42,12 +42,7 @@ const products = [
 ];
 
 const TopSelling = () => {
-  const [showAll, setShowAll] = useState(false);
-
-  // View All click hone par 4 products TEEN baar jod kar 12 (4+4+4) ban jate hain
-  const displayedProducts = showAll
-    ? [...products, ...products, ...products]
-    : products;
+  const displayedProducts = products;
 
   return (
     <section className="top-selling">
@@ -59,11 +54,15 @@ const TopSelling = () => {
         ))}
       </div>
 
-      {!showAll && (
-        <button className="view-all-btn" onClick={() => setShowAll(true)}>
-          View All
-        </button>
-      )}
+      <div style={{ textAlign: "center", marginTop: "30px" }}>
+        <Link
+          to="/category"
+          className="view-all-btn"
+          style={{ display: "inline-block", textDecoration: "none" }}
+        >
+          View All Top Selling
+        </Link>
+      </div>
     </section>
   );
 };

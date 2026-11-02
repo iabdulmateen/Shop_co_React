@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Hero.css";
 import hero from "../../assets/Rectangle 2.png";
 
@@ -20,9 +21,9 @@ const Hero = () => {
           designed to bring out your individuality and cater to your sense of style.
         </p>
 
-        <button className="hero-button">
+        <Link to="/category" className="hero-button" style={{ display: "inline-block", textAlign: "center", textDecoration: "none" }}>
           Shop Now
-        </button>
+        </Link>
 
         <div className="hero-stats">
 

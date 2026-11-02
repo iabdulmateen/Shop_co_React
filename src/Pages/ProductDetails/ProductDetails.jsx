@@ -6,13 +6,18 @@ import ProductRecommendations from "../../Components/ProductRecommendations/Prod
 import cloth1 from "../../assets/cloth1.png";
 import API from "../../api";
 import { useCart } from "../../Context/Cart";
+import { useWishlist } from "../../Context/WishlistContext";
+import { initialProducts } from "../../data/products";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const location = useLocation();
+  const { isInWishlist, toggleWishlist } = useWishlist();
+
+  const foundProduct = initialProducts.find((p) => String(p.id) === String(id));
 
   const [product, setProduct] = useState(
-    location.state || {
+    location.state || foundProduct || {
       id: id || "1",
       name: "One Life Graphic T-shirt",
       price: 260,
@@ -159,6 +164,28 @@ const ProductDetails = () => {
 
             <button type="button" className="add-cart-button" onClick={handleAddToCart}>
               Add to Cart
+            </button>
+
+            <button
+              type="button"
+              onClick={() => toggleWishlist({ ...product, id: product._id || product.id, image: productImage })}
+              title={isInWishlist(product._id || product.id) ? "Remove from Wishlist" : "Save to Wishlist"}
+              style={{
+                width: "48px",
+                height: "48px",
+                borderRadius: "50%",
+                border: "1px solid #cbd5e1",
+                backgroundColor: isInWishlist(product._id || product.id) ? "#fee2e2" : "#fff",
+                color: isInWishlist(product._id || product.id) ? "#ef4444" : "#475569",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "18px",
+                flexShrink: 0,
+              }}
+            >
+              <i className={isInWishlist(product._id || product.id) ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i>
             </button>
           </div>
         </div>
