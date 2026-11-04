@@ -20,14 +20,31 @@ const ProductSection = () => {
   const [products, setProducts] = useState(fallbackProducts);
 
   useEffect(() => {
-    API.get("/products")
-      .then((res) => {
-        if (res.data && res.data.length > 0) setProducts(res.data);
-      })
-      .catch((err) => console.warn("Using fallback items:", err.message));
-  }, []);
+  API.get("/products")
+    .then((res) => {
+      console.log("PRODUCT API RESPONSE:", res.data);
 
-  const displayedProducts = products.slice(0, 4);
+      const data = res.data;
+
+      const productList = Array.isArray(data)
+        ? data
+        : Array.isArray(data.products)
+        ? data.products
+        : Array.isArray(data.data)
+        ? data.data
+        : [];
+
+      if (productList.length > 0) {
+        setProducts(productList);
+      }
+    })
+    .catch((err) => {
+      console.warn("Using fallback items:", err.message);
+    });
+}, []);
+const displayedProducts = Array.isArray(products)
+  ? products.slice(0, 4)
+  : fallbackProducts.slice(0, 4);
 
   return (
     <section className="product-section">

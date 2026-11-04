@@ -1,5 +1,5 @@
 import axios from 'axios';
-// 1. Agar local machine par hain to localhost:3000 use karega
+// 1. Agar local machine par hain to localhost:4000 use karega
 // 2. Agar Vercel par live hain to live backend cloud URL use karega
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
@@ -8,7 +8,7 @@ const isLocalhost = Boolean(
 );
 
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || (isLocalhost ? 'http://localhost:3000/api' : '/api'),
+  baseURL: import.meta.env.VITE_API_URL || (isLocalhost ? 'http://localhost:4000/api' : '/api'),
   timeout: 5000,
 });
 
