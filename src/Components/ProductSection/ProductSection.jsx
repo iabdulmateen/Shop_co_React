@@ -45,6 +45,7 @@ const ProductSection = () => {
 const displayedProducts = Array.isArray(products)
   ? products.slice(0, 4)
   : fallbackProducts.slice(0, 4);
+  console.log("PRODUCTS BEING RENDERED:", displayedProducts);
 
   return (
     <section className="product-section">
